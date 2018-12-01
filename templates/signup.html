@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+<!-- Page Content -->
+<div class="container signup-div">
+    <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 400px;">
+        <h4 class="card-title mt-3 text-center">Create Account</h4>
+        <p class="text-center">Get started with your free account</p>
+
+        <form id="form" action="signup" method="POST">
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            </div>
+            <input name="name" class="form-control" placeholder="Full name" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+            </div>
+            <input id="email" name="email" class="form-control" placeholder="Email address" type="email" required>
+        </div> <!-- form-group// -->
+        <p id="warning" class="text-center" style="font-weight: bold; display: none"><i class="fa fa-exclamation-triangle" style="color: #C70039"></i> Email is already in use!</p>
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+            </div>
+            <select class="custom-select" style="max-width: 120px;">
+            <option selected="a">+351</option>
+            </select>
+            <input name="phone_number" class="form-control" placeholder="Phone number" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+            </div>
+            <input name="address" class="form-control" placeholder="Address" type="text">
+        </div> <!-- form-group end.// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-home"></i> </span>
+            </div>
+            <input name="zip_code" class="form-control" placeholder="Postcode" type="text">
+        </div> <!-- form-group end.// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input id="password" name="password" class="form-control" placeholder="Create password" type="password" required>
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i id="icon" class="fa fa-lock"></i> </span>
+            </div>
+            <input id="password2" name="password2" class="form-control" placeholder="Repeat password" type="password" required>
+        </div> <!-- form-group// -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Create Account </button>
+        </div> <!-- form-group// -->
+
+        {% if not errors %}
+            <p class="text-center">Have an account? <a href="login">Log In</a> </p>
+        {% elif invalid_email %}
+            <p class="text-center">Email is already in use!</p>
+        {% endif %}
+        </form>
+    </article>
+    </div> <!-- card.// -->
+
+</div>
+    <!--container end.//-->
+
+{% endblock %}
+
+{% block scripts %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+{% endblock %}
