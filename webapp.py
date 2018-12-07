@@ -66,6 +66,34 @@ class WebApp(object):
 
         db.child("users").push(data)
 
+    def do_updateFirebase(self, username, name=None, email=None, number=None, addr=None, zipcode=None, pwd=None):
+        db = firebase.database()
+
+        users = db.child("users").get()
+        key=None
+        for user in users.each():
+            if user.val()["name"] == username:
+                key = user.key()
+
+        if key != None:
+            if name != None:
+                db.child("users").child(key).update({"name": name})
+
+            if name != None:
+                db.child("users").child(key).update({"email": email})
+
+            if name != None:
+                db.child("users").child(key).update({"phone_number":number})
+
+            if name != None:
+                db.child("users").child(key).update({"address": addr})
+
+            if name != None:
+                db.child("users").child(key).update({"zip_code": zipcode})
+
+            if name != None:
+                db.child("users").child(key).update({"password":pwd})
+
 
 ########################################################################################################################
 #   Controllers
@@ -191,6 +219,29 @@ class WebApp(object):
     @cherrypy.expose
     def shut(self):
         cherrypy.engine.exit()
+
+    @cherrypy.expose
+    def profile(self, name=None, email=None, phone_number=None, address=None, zip_code=None, oldpassword=None,password=None, password2=None):
+        username = get_user()['username']
+
+        for user in users.each():
+            if user.val()["name"] == user:
+                usr = user
+
+        if oldpassword != usr.val()["password"]:
+            tparams = {
+                'title': 'Profile Update',
+                'errors': True,
+                'user': self.get_user(),
+                'year': datetime.now().year,
+            }
+            return self.render('profile.html', tparams)
+        elif oldpassword == None:
+            self.do_updateFirebase(username,name, email, phone_number, address, zip_code, None)
+            raise cherrypy.HTTPRedirect("/profile")
+        else:
+            self.do_updateFirebase(username, name, email, phone_number, address, zip_code, password)
+            raise cherrypy.HTTPRedirect("/profile")
 
 
 if __name__ == '__main__':
