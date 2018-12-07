@@ -2,8 +2,6 @@ import cherrypy
 from jinja2 import Environment, PackageLoader, select_autoescape
 import os
 from datetime import datetime
-import sqlite3
-from sqlite3 import Error
 import json
 import pyrebase
 
@@ -44,18 +42,6 @@ class WebApp(object):
     def render(self, tpg, tps):
         template = self.env.get_template(tpg)
         return template.render(tps)
-
-    @cherrypy.expose
-    def do_login(self, email, pwd):
-        flag = "False"
-        db = firebase.database()
-        users = db.child("users").get()
-
-        for user in users.each():
-            if user.val()["email"] == email and user.val()["password"] == pwd:
-                self.set_user(user.val()["name"])
-                flag = "True"
-        return flag
     
     def do_authenticationFirebase(self, usr, pwd):
         db = firebase.database()
@@ -169,7 +155,34 @@ class WebApp(object):
 
         return data["response"]
 
+    
+    @cherrypy.expose
+    def get_products_list(self, category):
+        db = firebase.database()
 
+        try:
+            if category == None:
+                return json.dumps(db.child("products").get().val())
+            else:
+                return json.dumps(db.child("products").child(category).get().val())
+        except:
+            return "{}"
+
+    @cherrypy.expose
+    def search_products(self, category, search):
+        db = firebase.database()
+        result = []
+
+        products = db.child("products").child(category).get()
+
+        for item in products.each():
+            words = item.val()["name"].split()
+            for word in words:
+                if word == search:
+                    result.append(item.val())
+
+        return json.dumps(result)      
+        
     @cherrypy.expose
     def logout(self):
         self.set_user()
@@ -182,6 +195,10 @@ class WebApp(object):
 
 if __name__ == '__main__':
     conf = {
+        'global': {
+            'server.socket_host': '0.0.0.0',
+            'server.socket_port': int(os.environ.get('PORT', 5000)),
+        },
         '/': {
             'tools.sessions.on': True,
             'tools.staticdir.root': os.path.abspath(os.getcwd())
@@ -195,4 +212,6 @@ if __name__ == '__main__':
             'tools.staticdir.dir': './scripts'
         }
     }
+
+  
     cherrypy.quickstart(WebApp(), '/', conf)

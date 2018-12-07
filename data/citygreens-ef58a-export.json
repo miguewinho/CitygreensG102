@@ -1,0 +1,80 @@
+{
+  "products" : {
+    "fruits" : {
+      "-FZYDkdiooJoWddfgXcAbj" : {
+        "description" : "Oranges are full of Vitamin C and it's perfect for a juicy juice.",
+        "image" : "http://doctormurray.com/wp-content/uploads/2013/04/oranges.jpg",
+        "name" : "Orange",
+        "price" : "1.59€",
+        "quantity" : "100",
+        "rating" : "4.8"
+      }
+    },
+    "roots" : {
+      "-FZYDlWXKawddfgXcAbj" : {
+        "description" : "Fresh and orange root that is gathered from our rich soil.",
+        "image" : "https://i.pinimg.com/originals/ea/b6/fc/eab6fc1223baf9c3094ff231f8753f3b.jpg",
+        "name" : "Carrot",
+        "price" : "0.59€",
+        "quantity" : "100",
+        "rating" : "4.5"
+      },
+      "-PSYYTEheyUglOSytjsoI" : {
+        "description" : "Not used only to make you cry, it has been grown and selectively bred in cultivation for at least 7,000 years.",
+        "image" : "http://ste.india.com/sites/default/files/onion.jpg",
+        "name" : "Onion",
+        "price" : "0.25€",
+        "quantity" : "250",
+        "rating" : "4.7"
+      }
+    },
+    "seeds" : {
+      "-FPODlWXKUTYgvJGsAbj" : {
+        "description" : "You can use them to make that Brazilian 'Rodízio'.",
+        "image" : "https://i.pinimg.com/originals/f7/d7/e7/f7d7e7b1d578f772d744c7d9fce21f39.jpg",
+        "name" : "Black Bean",
+        "price" : "0.49€",
+        "quantity" : "100",
+        "rating" : "3.9"
+      }
+      
+    },
+    "vegetables" : {
+      "-SKLSUYTYGHDmduywoksh" : {
+        "description" : "Is an annual plant of the daisy family and is most often grown as a leaf vegetable.",
+        "image" : "http://ste.india.com/sites/default/files/2015/09/18/414063-lettuce.jpg",
+        "name" : "Lettuce",
+        "price" : "0.30€",
+        "quantity" : "50",
+        "rating" : "4.1"
+      }
+    } 
+  },
+  "users" : {
+    "-LSUmYFZYDlUWXKXcAbj" : {
+      "address" : "Rua da Lage, 15, Santa Eulália",
+      "email" : "paulogil93@gmail.com",
+      "name" : "Paulo Gil",
+      "password" : "paulogil",
+      "phone_number" : "987654321",
+      "username" : "paulogil",
+      "zip_code" : "3550-253 Pindo"
+    },
+    "-LSv2c99G-A5Y54dod_e" : {
+      "address" : "endereço de minha casa",
+      "email" : "joseantonio@parlamento.pt",
+      "name" : "antonio ramalho eanes",
+      "password" : "passe",
+      "phone_number" : "993",
+      "zip_code" : "o postal"
+    },
+    "-LSvAzIn5zpM84E0wWWh" : {
+      "address" : "Aveiro",
+      "email" : "netirk.costa.98@outlook.pt",
+      "name" : "Miguel Costa",
+      "password" : "12345678",
+      "phone_number" : "",
+      "zip_code" : "4520-138"
+    }
+  }
+}
