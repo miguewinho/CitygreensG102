@@ -222,10 +222,13 @@ class WebApp(object):
 
     @cherrypy.expose
     def profile(self, name=None, email=None, phone_number=None, address=None, zip_code=None, oldpassword=None,password=None, password2=None):
-        username = get_user()['username']
+        username = self.get_user()['username']
+        db = firebase.database()
+        users = db.child("users").get()
 
         for user in users.each():
             if user.val()["name"] == user:
+                print("TEST")
                 usr = user
 
         if oldpassword != usr.val()["password"]:
