@@ -1,7 +1,10 @@
 {% if user.is_authenticated %}
 
 <li class="nav-item">
-	<a class="nav-link" href="profile">Hello {{ user.username }}!&nbsp;&nbsp;&nbsp;</a>a<
+	<a class="nav-link" href="profile">Hello</a>
+</li>
+<li class="nav-item">
+	<a class="nav-link" href="profile">{{ user.username }}!&nbsp;&nbsp;&nbsp;</a>
 </li>
 <span class="navbar-text">
 	<a href="logout">Logout</a>
