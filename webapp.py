@@ -49,7 +49,7 @@ class WebApp(object):
 
         for user in users.each():
             if user.val()["email"] == usr and user.val()["password"] == pwd:
-                self.set_user(usr)
+                self.set_user(user.val()["name"])
 
     def do_registrationFirebase(self, name, email, number, addr, zipcode, pwd):
         db = firebase.database()
@@ -196,19 +196,28 @@ class WebApp(object):
             return "{}"
 
     @cherrypy.expose
-    def search_products(self, category, search):
+    def search_products(self, search):
         db = firebase.database()
         result = []
 
-        products = db.child("products").child(category).get()
-
-        for item in products.each():
-            words = item.val()["name"].split()
-            for word in words:
-                if word == search:
-                    result.append(item.val())
-
-        return json.dumps(result)      
+        keys = list(db.child("products").shallow().get().val())
+        for key in keys:
+            products = db.child("products").child(key).get()
+            for item in products.each():
+                product_names = item.val()["name"].split()
+                search_names = search.split()
+                for p_name in product_names:
+                    for s_name in search_names:
+                        if p_name == s_name:
+                            obj = db.child("products").child(key).order_by_child("name").equal_to(item.val()["name"]).get().val()
+                            if obj not in result:
+                                result.append(obj)
+        
+        print(json.dumps(result))
+        if not result:
+            return "null"
+        else:
+            return json.dumps(result)      
         
     @cherrypy.expose
     def logout(self):

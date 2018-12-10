@@ -1,8 +1,11 @@
 /*Global vars*/ 
 var response; 
 var category = "";
+var search_query = "";
+var nElements = 0;
 
 function get_products(callback) {
+  
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if(this.readyState == 4 && this.status == 200) {
@@ -10,11 +13,12 @@ function get_products(callback) {
         callback();
       }
   };
-  xhttp.open("GET", "/get_products_list?category=" + category, true);
+  xhttp.open("POST", "/get_products_list?category=" + category, true);
   xhttp.send();
 }
 
 function print_products() {
+  nElements = 0;
   if(response == undefined) {
     return false;
   }
@@ -27,6 +31,7 @@ function print_products() {
   else {
     create_elements(response);
   }
+  document.getElementById("label-found").innerHTML = "Found " + nElements + " product(s) matching " + "\"" + search_query + "\"."  
 }
 
 function create_elements(object) {
@@ -99,6 +104,7 @@ function create_elements(object) {
     div4.appendChild(div5);
 
     parent.appendChild(div1);
+    nElements++;
   }
 }
 
@@ -126,9 +132,41 @@ function set_category(elem) {
   } else {
     category = elem.id;
   }
-  
+  document.getElementById("label-found").style.display = "none";
   clear_page();
   get_products(print_products);
+  
+}
+
+function search() {
+  var search_text = document.getElementById("mysearch");
+  if(search_text.value != "") {
+    search_query = search_text.value;
+    clear_page();
+    get_search(print_products);
+  }
+}
+
+function get_search(callback) {
+  
+  var xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function() {
+      if(this.readyState == 4 && this.status == 200) {
+        response = JSON.parse(this.responseText);
+        if(response != null) {
+          document.getElementById("label-warning").style.display = "none";
+          document.getElementById("label-found").style.display = "block";
+          callback();
+        } else {
+          document.getElementById("missing-product").innerHTML = "\"" + search_query + "\"";
+          document.getElementById("label-warning").style.display = "block";
+          document.getElementById("label-found").style.display = "none";
+        }
+      }
+  };
+  
+  xhr.open("POST", "/search_products?search=" + search_query, true);
+  xhr.send();
 }
 
 document.onload = get_products(print_products);

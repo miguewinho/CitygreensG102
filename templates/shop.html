@@ -6,7 +6,7 @@
   <script type="text/javascript" src="scripts/shop.js"></script> 
 {% endblock %}
     <!-- Page Content -->
-    <div id="init" class="container">
+    <div id="init" style="min-height: 90vh" class="container">
 
       <div class="row">
 
@@ -27,11 +27,11 @@
             <a id="seeds" href="#" onclick="set_category(this)" class="list-group-item">Seeds</a>
             <div id="search" class="container list-group-item">
             <div  class="row" >
-              <form style="padding: 10px;" class="form" >
+              <form style="padding: 10px;" class="form" onsubmit="return false;" method="POST">
                 <div class="input-group">
                     <input class="form-control" type="text" placeholder="Search" aria-label="Search" style="padding-left: 20px; border-radius: 40px;" id="mysearch">
                     <div class="input-group-addon" style="margin-left: -50px; z-index: 3; border-radius: 40px; background-color: transparent; border:none;">
-                      <button class="btn btn-warning btn-sm" type="submit" style="border-radius: 20px; position: relative; top: 3px; right: -12px;" id="search-btn"><i class="fa fa-search"></i></button>
+                      <button onclick="javascript:search();" class="btn btn-warning btn-sm" type="submit" style="border-radius: 20px; position: relative; top: 3px; right: -12px;" id="search-btn"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
               </form>
@@ -72,8 +72,15 @@
             </a>
           </div>
 
-         
-          <br>
+          <div id="label-warning" style="display: none;" class="alert alert-warning" role="alert">
+            <h4 id="missing-product" class="alert-heading"></h4>
+            <p>We weren't able to find the product you specified.</p>
+            <hr>
+            <p class="mb-0">Check the spelling or try searching for the product by clicking in a category on the left.</p>
+          </div>
+
+          <div id="label-found" style="display: none;" class="alert alert-primary" role="alert">
+          </div>
 
           <div id="row-list" class="row">
 

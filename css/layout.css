@@ -1,4 +1,4 @@
 /*Footer*/
 .fixed-footer {
-    clear: both
+    max-width: 100%;
 }
