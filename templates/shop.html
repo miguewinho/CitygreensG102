@@ -19,11 +19,25 @@
           <h1 class="h2">Filter by category</h1>
           -->
           <div class="list-group">
-            <a class="list-group-item">Filter by category</a>
-            <a href="#" class="list-group-item active">Vegetables</a>
-            <a href="#" class="list-group-item">Fruits</a>
-            <a href="#" class="list-group-item">Roots</a>
-            <a href="#" class="list-group-item">Seeds</a>
+            <a style="text-align: center;" class="list-group-item">Filter by category</a>
+            <a id="all" href="#" onclick="set_category(this)" class="list-group-item active">All</a>
+            <a id="vegetables" href="#" onclick="set_category(this)" class="list-group-item">Vegetables</a>
+            <a id="fruits" href="#" onclick="set_category(this)" class="list-group-item">Fruits</a>
+            <a id="roots" href="#" onclick="set_category(this)" class="list-group-item">Roots</a>
+            <a id="seeds" href="#" onclick="set_category(this)" class="list-group-item">Seeds</a>
+            <div id="search" class="container list-group-item">
+            <div  class="row" >
+              <form style="padding: 10px;" class="form" >
+                <div class="input-group">
+                    <input class="form-control" type="text" placeholder="Search" aria-label="Search" style="padding-left: 20px; border-radius: 40px;" id="mysearch">
+                    <div class="input-group-addon" style="margin-left: -50px; z-index: 3; border-radius: 40px; background-color: transparent; border:none;">
+                      <button class="btn btn-warning btn-sm" type="submit" style="border-radius: 20px; position: relative; top: 3px; right: -12px;" id="search-btn"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
           </div>
 
         </div>
@@ -58,28 +72,7 @@
             </a>
           </div>
 
-          <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-8">
-              <form class="card card-sm" >
-                <div class="card-body row no-gutters align-items-center">
-                  <div class="col-auto">
-                    <i class="fas fa-search h4 text-body"></i>
-                  </div>
-                  <!--end of col-->
-                  <div class="col">
-                    <input class="form-control form-control-lg form-control-borderless" type="search" placeholder="Search topics or keywords">
-                  </div>
-                  <!--end of col-->
-                  <div class="col-auto">
-                    <button class="btn btn-lg btn-success" type="submit">Search</button>
-                  </div>
-                  <!--end of col-->
-                </div>
-              </form>
-            </div>
-            <!--end of col-->
-          </div>
-          
+         
           <br>
 
           <div id="row-list" class="row">

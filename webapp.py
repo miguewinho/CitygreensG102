@@ -187,7 +187,6 @@ class WebApp(object):
     @cherrypy.expose
     def get_products_list(self, category):
         db = firebase.database()
-
         try:
             if category == None:
                 return json.dumps(db.child("products").get().val())
