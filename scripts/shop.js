@@ -86,13 +86,13 @@ function create_elements(object) {
 
     //Adds button
     var html = [
-      '<label class="btn btn-lg btn-success active">',
-        '<input type="radio" name="options" id="option1" autocomplete="off" checked>',
-        '<i class="fa fa-check"></i> Added',
+      '<label for="', object[key].name, '" onClick="update_cart(this)" class="btn btn-lg btn-success active">',
+      '<input type="radio" id="option', nElements, '_a" autocomplete="off" checked>',
+      '<i class="fa fa-check"></i> Added',
       '</label>',
-      '<label class="btn btn-lg btn-danger">',
-        '<input type="radio" name="options" id="option2" autocomplete="off">',
-        '<i class="fa fa-plus"></i> Add to cart',
+      '<label for="', object[key].name, '" onClick="update_cart(this)" class="btn btn-lg btn-danger">',
+      '<input type="radio" id="option', nElements, '_b" autocomplete="off">',
+      '<i class="fas fa-shopping-cart"></i> Add to cart',
       '</label>'
     ].join('');
 
@@ -103,7 +103,7 @@ function create_elements(object) {
 
     div4.appendChild(div5);
 
-    parent.appendChild(div1);
+    parent.appendChild(div1);  
     nElements++;
   }
 }
@@ -167,6 +167,18 @@ function get_search(callback) {
   
   xhr.open("POST", "/search_products?search=" + search_query, true);
   xhr.send();
+}
+
+function update_cart(elem) {
+  alert(elem.htmlFor);
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if(this.readyState == 4 && this.status == 200) {
+        alert(this.responseText);
+      }
+  };
+  xhttp.open("POST", "/update_cart?product=" + elem.htmlFor + "&qty=1", true);
+  xhttp.send();
 }
 
 document.onload = get_products(print_products);

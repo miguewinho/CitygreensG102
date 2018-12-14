@@ -1,0 +1,84 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% block styles %}
+  <link href="css/full-slider.css" rel="stylesheet">
+{% endblock %}
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+<!-- Page Content -->
+<div class="container signup-div">
+    <div class="card bg-light">
+    <article class="card-body mx-auto" style="max-width: 500px;">
+        <h4 class="card-title mt-3 text-center">Profile</h4>
+        <p class="text-center">Verify and Change your data if needed</p>
+
+        <form id="form" action="profileupdate" method="POST">
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+            </div>
+            <a>
+
+            </a>
+            <input name="nickname" class="form-control" placeholder="Change username" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+            </div>
+            <input id="email" name="email" class="form-control" placeholder="Change Email address" type="email">
+        </div> <!-- form-group// -->
+        <p id="warning" class="text-center" style="font-weight: bold; display: none"><i class="fa fa-exclamation-triangle" style="color: #C70039"></i> Email is already in use!</p>
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+            </div>
+            <input name="phone_number" class="form-control" placeholder="Change Phone number" type="text">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-building"></i> </span>
+            </div>
+            <input name="address" class="form-control" placeholder="Change Address" type="text">
+        </div> <!-- form-group end.// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-home"></i> </span>
+            </div>
+            <input name="zip_code" class="form-control" placeholder="Change Postcode" type="text">
+        </div> <!-- form-group end.// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input id="oldpassword" name="oldpassword" class="form-control" placeholder="Old password" type="password">
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+            </div>
+            <input id="password" name="password" class="form-control" placeholder="New password" type="password" >
+        </div> <!-- form-group// -->
+        <div class="form-group input-group">
+            <div class="input-group-prepend">
+            <span class="input-group-text"> <i id="icon" class="fa fa-lock"></i> </span>
+            </div>
+            <input id="password2" name="password2" class="form-control" placeholder="Repeat new password" type="password">
+        </div> <!-- form-group// -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block"> Save Profile </button>
+        </div> <!-- form-group// -->
+        </form>
+    </article>
+    </div> <!-- card.// -->
+
+</div>
+    <!--container end.//-->
+
+{% endblock %}
+
+{% block scripts %}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+{% endblock %}

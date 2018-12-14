@@ -12,7 +12,7 @@
     },
     "roots" : {
       "-FZYDlWXKawddfgXcAbj" : {
-        "description" : "Fresh and orange root that is gathered from our rich soil.",
+        "description" : "Fresh root that is gathered from our rich soil.",
         "image" : "https://i.pinimg.com/originals/ea/b6/fc/eab6fc1223baf9c3094ff231f8753f3b.jpg",
         "name" : "Carrot",
         "price" : "0.59€",
@@ -33,11 +33,10 @@
         "description" : "You can use them to make that Brazilian 'Rodízio'.",
         "image" : "https://i.pinimg.com/originals/f7/d7/e7/f7d7e7b1d578f772d744c7d9fce21f39.jpg",
         "name" : "Black Bean",
-        "price" : "0.49€",
+        "price" : "30€",
         "quantity" : "100",
         "rating" : "3.9"
       }
-      
     },
     "vegetables" : {
       "-SKLSUYTYGHDmduywoksh" : {
@@ -48,7 +47,7 @@
         "quantity" : "50",
         "rating" : "4.1"
       }
-    } 
+    }
   },
   "users" : {
     "-LSUmYFZYDlUWXKXcAbj" : {
@@ -66,15 +65,26 @@
       "name" : "antonio ramalho eanes",
       "password" : "passe",
       "phone_number" : "993",
+      "username" : " ",
       "zip_code" : "o postal"
     },
     "-LSvAzIn5zpM84E0wWWh" : {
       "address" : "Aveiro",
-      "email" : "netirk.costa.98@outlook.pt",
+      "email" : "mig.reis@ua.pt",
       "name" : "Miguel Costa",
-      "password" : "12345678",
-      "phone_number" : "",
-      "zip_code" : "4520-138"
+      "password" : "87654321",
+      "phone_number" : "914944905",
+      "username" : "miguewinho",
+      "zip_code" : "4520-124"
+    },
+    "-LTX1rOQfg9TCVX77_mX" : {
+      "address" : "",
+      "email" : "gilette09@hotmail.com",
+      "name" : "Gil",
+      "password" : "gilgil2242",
+      "phone_number" : "911074414",
+      "username" : "IWantFuckingGreenShit",
+      "zip_code" : ""
     }
   }
 }

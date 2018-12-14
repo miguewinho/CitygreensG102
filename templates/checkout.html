@@ -1,0 +1,123 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+{% block styles %}
+  <link href="css/shop-homepage.css" rel="stylesheet">
+  <link href="css/checkout.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+{% endblock %}
+    <!-- Page Content -->
+	<div id="init" style="min-height: 90vh" class="container">
+	<br>
+	<br>
+		
+	<section class="shopping-cart dark">
+		<div class="container">
+			<div class="block-heading">
+				<h2>Shopping Cart</h2>
+				<p style="display: none;">Your Shopping Cart is empty.  <a href="/shop">Start shopping now!</a></p>
+				<p style="display: none;">Your Shopping Cart is empty.  <a href="/login">Login</a> to start adding items to your cart!</p>
+			</div>
+			<div class="content">
+				<div class="row">
+					<div class="col-md-12 col-lg-8">
+						<div class="items">
+							<div class="product">
+								<div class="row">
+									<div class="col-md-3">
+										<img class="img-fluid mx-auto d-block image" src="https://static.greatbigcanvas.com/images/square/panoramic-images/oranges-on-a-tree-santa-paula-ventura-county-california,2005446.jpg?max=128">
+									</div>
+									<div class="col-md-8">
+										<div class="info">
+											<div class="row">
+												<div class="col-md-4 product-name">
+													<div class="product-name">
+														<a href="#">Orange</a>
+														<div class="product-info">
+															<div>Stock: <span class="value">150</span></div>
+															<div>Price: <span class="value">2,19€/kg</span></div>	
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4 quantity">
+													<label for="quantity">Quantity:</label>
+													<input id="quantity" type="number" value ="1" class="form-control quantity-input">
+												</div>
+												<div class="col-md-3">
+													<br>
+													<span>Subtotal: <strong>2,19€</strong></span>
+												</div>
+												<div class="col-md-1">
+													<br>
+													<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<hr align="center" class="custom-style">
+							
+							<div class="product">
+								<div class="row">
+									<div class="col-md-3">
+										<img class="img-fluid mx-auto d-block image" src="https://a.wattpad.com/useravatar/onionsz.128.621023.jpg">
+									</div>
+									<div class="col-md-8">
+										<div class="info">
+											<div class="row">
+												<div class="col-md-4 product-name">
+													<div class="product-name">
+														<a href="#">Onion</a>
+														<div class="product-info">
+															<div>Stock: <span class="value">200</span></div>
+															<div>Price: <span class="value">1,79€/kg</span></div>	
+														</div>
+													</div>
+												</div>
+												<div class="col-md-4 quantity">
+													<label for="quantity">Quantity:</label>
+													<input id="quantity" type="number" value ="1" class="form-control quantity-input">
+												</div>
+												<div class="col-md-3">
+													<br>
+													<span>Subtotal: <strong>1,79€</strong></span>
+												</div>
+												<div class="col-md-1">
+													<br>
+													<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12 col-lg-4">
+						<div class="summary">
+							<h3>Summary</h3>
+							<div class="summary-item"><span class="text">Subtotal</span><span class="price">$360</span></div>
+							<div class="summary-item"><span class="text">Discount</span><span class="price">$0</span></div>
+							<div class="summary-item"><span class="text">Shipping</span><span class="price">$0</span></div>
+							<div class="summary-item"><span class="text">Total</span><span class="price">$360</span></div>
+							<button type="button" class="btn btn-primary btn-lg btn-block">Checkout</button>
+						</div>
+					</div>
+				</div> 
+			</div>
+		</div>
+	</section>
+
+    <br>
+
+    </div>
+<!-- /.container -->
+
+{% endblock %}
+
+{% block scripts %}
+    
+{% endblock %}
+

@@ -1,20 +1,19 @@
 {% if user.is_authenticated %}
 
-<li class="nav-item">
-	<a class="nav-link" href="profile">Hello</a>
-</li>
-<li class="nav-item">
-	<a class="nav-link" href="profile">{{ user.username }}!&nbsp;&nbsp;&nbsp;</a>
-</li>
-<span class="navbar-text">
-	<a href="logout">Logout</a>
-</span>
+<div class="dropdown mr-1">
+    <button type="button" id="dmo" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<i class="far fa-user"></i> &nbsp;&nbsp;{{ user.username }}</button>
+  	</button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
+      <a class="dropdown-item" href="profile"><i class="far fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
+    	<div class="dropdown-divider"></div>
+    		<a class="dropdown-item" href="logout"><i class="fas fa-sign-out-alt"></i>&nbsp;&nbsp;&nbsp;&nbsp;Logout</a>
+  		</div>
+    </div>
+  </div>
 
 {% else %}
 
-<span class="navbar-text">
-    <a href="login">Login</a>
-</span>
+<button type="button" onclick="window.location.href='/login'" class="btn btn-dark nav-item">Login</button>
 
 {% endif %}
-
