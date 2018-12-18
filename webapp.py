@@ -196,6 +196,31 @@ class WebApp(object):
         return "True"
 
     @cherrypy.expose
+    def cart_counter(self):
+    	cart = cherrypy.session['user']['cart']
+    	return len(cart)
+
+    @cherrypy.expose
+    def removefrom_cart(self, product):
+    	cart = cherrypy.session['user']['cart']
+
+    	for a in cart:
+    		if a[0] == product:
+    			cart.remove(a)
+    			return True
+    	return False
+
+    @cherrypy.expose
+    def update_quantity(self, product, qty):
+    	cart = cherrypy.session['user']['cart']
+
+    	for a in cart:
+    		if a[0] == product:
+    			a[1] == qty
+    			return True
+    	return False
+
+    @cherrypy.expose
     def user_exists(self, email):
 
         data = {
