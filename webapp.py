@@ -325,7 +325,7 @@ class WebApp(object):
                 if zipcode != user.val()["zip_code"] and zipcode != "" and zipcode != None:
                     db.child("users").child(user.key()).update({"zip_code": zipcode})
         
-        return self.render('profile2.html', tparams)
+        return self.render('profile.html', tparams)
 
 ########################################################################################################################
 #   Configuration
