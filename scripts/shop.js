@@ -170,7 +170,6 @@ function get_search(callback) {
 }
 
 function update_cart(elem) {
-  alert(elem.htmlFor);
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if(this.readyState == 4 && this.status == 200) {
@@ -178,7 +177,7 @@ function update_cart(elem) {
       }
   };
   xhttp.open("POST", "/update_cart?product=" + elem.htmlFor + "&qty=1", true);
-  xhttp.send();
+  xhttp.send(); 
 }
 
 document.onload = get_products(print_products);

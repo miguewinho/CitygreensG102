@@ -2,83 +2,243 @@
 {% block content %}
 
 {% block styles %}
-  <link href="css/full-slider.css" rel="stylesheet">
+    <link href="css/profile.css" rel="stylesheet">
+    
 {% endblock %}
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<br>
+<br>
 
-<!-- Page Content -->
-<div class="container signup-div">
-    <div class="card bg-light">
-    <article class="card-body mx-auto" style="max-width: 500px;">
-        <h4 class="card-title mt-3 text-center">Profile</h4>
-        <p class="text-center">Verify and Change your data if needed</p>
+<hr>
+<div class="container" style="min-height: 90vh;">
+    <div class="row">
+  		<div style="text-align: center" class="col-sm-3">
+          <h1 id="user_name"></h1>
+          <hr>
+        </div>
+    </div>
 
-        <form id="form" action="profileupdate" method="POST">
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+    <div class="row">
+  		<div class="col-sm-3">
+            <div class="text-center">
+                <img src="https://raw.githubusercontent.com/Infernus101/ProfileUI/0690f5e61a9f7af02c30342d4d6414a630de47fc/icon.png" class="avatar rounded-circle img-thumbnail" alt="avatar">
+                <hr>
+                <h6 class="h6" style="font-size: 14px">Upload a different photo...</h6>
+                <input type="file" class="text-center form-control-file">
             </div>
-            <a>
 
-            </a>
-            <input name="nickname" class="form-control" placeholder="Change username" type="text">
-        </div> <!-- form-group// -->
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-            </div>
-            <input id="email" name="email" class="form-control" placeholder="Change Email address" type="email">
-        </div> <!-- form-group// -->
-        <p id="warning" class="text-center" style="font-weight: bold; display: none"><i class="fa fa-exclamation-triangle" style="color: #C70039"></i> Email is already in use!</p>
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-            </div>
-            <input name="phone_number" class="form-control" placeholder="Change Phone number" type="text">
-        </div> <!-- form-group// -->
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-            </div>
-            <input name="address" class="form-control" placeholder="Change Address" type="text">
-        </div> <!-- form-group end.// -->
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-home"></i> </span>
-            </div>
-            <input name="zip_code" class="form-control" placeholder="Change Postcode" type="text">
-        </div> <!-- form-group end.// -->
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-            </div>
-            <input id="oldpassword" name="oldpassword" class="form-control" placeholder="Old password" type="password">
-        </div> <!-- form-group// -->
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-            <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-            </div>
-            <input id="password" name="password" class="form-control" placeholder="New password" type="password" >
-        </div> <!-- form-group// -->
-        <div class="form-group input-group">
-            <div class="input-group-prepend">
-            <span class="input-group-text"> <i id="icon" class="fa fa-lock"></i> </span>
-            </div>
-            <input id="password2" name="password2" class="form-control" placeholder="Repeat new password" type="password">
-        </div> <!-- form-group// -->
-        <div class="form-group">
-            <button type="submit" class="btn btn-primary btn-block"> Save Profile </button>
-        </div> <!-- form-group// -->
-        </form>
-    </article>
-    </div> <!-- card.// -->
+            <br>
+            </hr>
 
+            <ul class="list-group">
+                <li class="list-group-item text-muted text-center">Summary</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Orders completed</strong></span> 125</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Pending orders</strong></span> 13</li>
+                <li class="list-group-item text-right"><span class="float-left"><strong>Custom lists</strong></span> 3</li>
+            </ul>
+            <br>
+            <br>
+        </div>
+
+        <div class="col-md-9">
+            <ul class="nav nav-tabs" id="profileTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Details</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="lists-tab" data-toggle="tab" href="#lists" role="tab" aria-controls="lists" aria-selected="false">Custom Lists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">History</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="profileTabContent">
+                <hr>
+                <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="home-tab">
+                    <form class="form" action="profile_update" method="post" id="registrationForm">
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="first_name"><h5>Name</h5></label>
+                                <input type="text" class="form-control" name="name" id="name" placeholder="First name" title="enter your first name if any.">
+                            </div>
+                            <div class="col">
+                                <label for="last_name"><h5>Username</h5></label>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Username" title="enter your last name if any.">
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="email"><h5>Address</h5></label>
+                                <input type="text" class="form-control" name="addr" id="addr" placeholder="Address" title="enter a location">
+                            </div>
+                            <div class="col">
+                                <label for="email"><h5>Zip Code</h5></label>
+                                <input type="text" class="form-control" name="zipcode" id="zipcode" placeholder="Zip code" title="enter a zipcode">
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="phone"><h5>Phone</h5></label>
+                                <input type="text" class="form-control" name="number" id="number" placeholder="Phone number" title="enter your phone number if any.">
+                            </div>
+                            <div class="col">
+                                
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <br>
+                                <button id="update_btn" class="btn btn-success" type="submit"><i class="fas fa-check"></i> Save</button>
+                                <button id="reset_btn" class="btn btn-secondary" type="button"><i class="fas fa-redo"></i> Reset</button>
+                                
+                            </div>
+                        </div>
+                        
+                    </form>
+                    <hr>
+                    <div class="alert alert-info" role="alert">
+                        You can change email and password by following the links below.
+                    </div>
+                    <div id="pwd_changed" style="display: none" class="alert alert-success alert-dismissible fade show" role="alert">
+                        The password has been changed successfully. Please logout for the changes to take place.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div id="email_changed" style="display: none" class="alert alert-success alert-dismissible fade show" role="alert">
+                        The email address has been changed successfully. Please follow the link in your email address to confirm the change.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#passwordModal">
+                        <i class="fas fa-unlock"></i>
+                        Change password
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#emailModal">
+                        <i class="fas fa-envelope"></i>
+                        Change email
+                    </button>
+                    <hr>
+                </div>
+                <div class="tab-pane fade" id="lists" role="tabpanel" aria-labelledby="profile-tab">
+                    tab2
+                </div>
+                <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="contact-tab">
+                    tab3
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-    <!--container end.//-->
+
+<!-- Password Modal -->
+<div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Change Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!--Change Password-->
+        <div class="row">
+            <!--Alert-->
+            <div id="alert_pwd" class="alert alert-danger" style="width: 100%; display: none" role="alert">
+                <h4 class="alert-heading">Wrong password!</h4>
+                <p>Please enter the old password.</p>
+                <hr>
+                <p class="mb-0"><a href="#">Forgot password?</a></p>
+            </div>
+            <div id="alert_pwd2" class="alert alert-danger" style="width: 100%; display: none" role="alert">
+                <h4 class="alert-heading">Passwords don't match!</h4>
+                <p>Please fill in the boxes with the new password.</p>
+            </div>
+
+
+
+            <div id="formResults" class="col-8 mx-auto">
+                <form id="pwd_form" action="check_password" method="post">
+                    <label>Old Password</label>
+                    <div class="form-group pass_show"> 
+                        <input id="old_password" name="old_pwd" type="password"  class="form-control" placeholder="Old Password"> 
+                    </div> 
+                    <label>New Password</label>
+                    <div class="form-group pass_show"> 
+                        <input id="new_password1" name="new_pwd1" type="password" class="form-control" placeholder="New Password"> 
+                    </div> 
+                    <label>Confirm Password</label>
+                    <div class="form-group pass_show"> 
+                        <input id="new_password2" name="new_pwd2" type="password" class="form-control" placeholder="Confirm Password"> 
+                    </div>
+                </form>
+            </div>  
+        </div>
+        <!--End change password-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="pwd_submit" class="btn btn-primary">Change password</button> 
+    </div>
+    </div>
+</div>
+</div>
+<!--End modal-->
+
+<!-- Email Modal -->
+<div class="modal fade" id="emailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Change email address</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!--Change Password-->
+        <div class="row">
+            <!--Alert-->
+            <div class="alert alert-secondary" style="width: 100%" role="alert">
+                You will receive an email into your new address in order to confirm this change.
+            </div>
+
+            <div id="email_alert" style="width: 100%; display: none" class="alert alert-danger" role="alert">
+                Please input a valid email address.
+            </div>
+
+            <div class="col-8 mx-auto">
+                <form id="email_form" action="change_email" method="post">
+                    <label>New email</label>
+                    <div class="form-group"> 
+                        <input id="email_addr" name="email_addr" type="email" class="form-control" placeholder="Email address"> 
+                    </div> 
+                </form>
+            </div>  
+        </div>
+        <!--End change password-->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" id="email_submit" class="btn btn-primary">Change email</button> 
+    </div>
+    </div>
+</div>
+</div>
+<!--End modal-->
+
+<hr>
 
 {% endblock %}
 
 {% block scripts %}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+    <script type="text/javascript" src="scripts/profile.js"></script>
 {% endblock %}

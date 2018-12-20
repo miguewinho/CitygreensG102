@@ -57,12 +57,13 @@ class WebApp(object):
             if user.val()["email"] == usr and user.val()["password"] == pwd:
                 self.set_user(user.val()["name"])
 
-    def do_registrationFirebase(self, name, email, number, addr, zipcode, pwd):
+    def do_registrationFirebase(self, name, username, email, number, addr, zipcode, pwd):
         db = firebase.database()
         users = db.child("users").get()
 
         data = {
             "name": name,
+            "username": username,
             "email": email,
             "phone_number": number,
             "address": addr,
@@ -71,35 +72,6 @@ class WebApp(object):
         }
 
         db.child("users").push(data)
-
-    def do_updateFirebase(self, username=None, name=None, email=None, number=None, addr=None, zipcode=None, pwd=None):
-        db = firebase.database()
-
-        users = db.child("users").get()
-        key=None
-        for user in users.each():
-            if user.val()["name"] == username:
-                key = user.key()
-
-        if key != None:
-            if name != "":
-                db.child("users").child(key).update({"username": name})
-
-            if email != "":
-                db.child("users").child(key).update({"email": email})
-
-            if number != "":
-                db.child("users").child(key).update({"phone_number":number})
-
-            if addr != "":
-                db.child("users").child(key).update({"address": addr})
-
-            if zipcode != "":
-                db.child("users").child(key).update({"zip_code": zipcode})
-
-            if pwd != "":
-                db.child("users").child(key).update({"password":pwd})
-
 
 ########################################################################################################################
 #   Controllers
@@ -125,7 +97,7 @@ class WebApp(object):
 
 
     @cherrypy.expose
-    def signup(self, name=None, email=None, phone_number=None, address=None, zip_code=None, password=None, password2=None):
+    def signup(self, name=None, username=None, email=None, phone_number=None, address=None, zip_code=None, password=None, password2=None):
         if email == None:
             tparams = {
                 'title': 'Sign up to City Greens',
@@ -136,7 +108,7 @@ class WebApp(object):
             }
             return self.render('signup.html', tparams)
         else:
-            self.do_registrationFirebase(name, email, phone_number, address, zip_code, password)
+            self.do_registrationFirebase(name, username, email, phone_number, address, zip_code, password)
             raise cherrypy.HTTPRedirect("/login")
         
             
@@ -292,33 +264,71 @@ class WebApp(object):
         return self.render('profile.html', tparams)
 
     @cherrypy.expose
-    def profileupdate(self, nickname, email, phone_number, address, zip_code, oldpassword,password, password2):
-        username = self.get_user()['username']
+    def check_password(self, old_pwd, new_pwd1, new_pwd2):
         db = firebase.database()
         users = db.child("users").get()
-        usr = None
 
         for user in users.each():
+            if user.val()["name"] == cherrypy.session["user"]["username"]:
+                if user.val()["password"] != old_pwd:
+                    print("0000");
+                    return "0"
+                else:
+                    data = {
+                        "password" : new_pwd1
+                    }
+                    db.child("users").child(user.key()).update(data)
+                    
+                    return "1"
+
+    @cherrypy.expose
+    def change_email(self, email_addr):
+        db = firebase.database()
+        users = db.child("users").get()
+
+        for user in users.each():
+            if user.val()["name"] == cherrypy.session["user"]["username"]:
+                db.child("users").child(user.key()).update({"email": email_addr})
+
+
+    @cherrypy.expose
+    def get_user_details(self):
+        db = firebase.database()
+        users = db.child("users").get()
+
+        for user in users.each():
+            if(user.val()["name"] == cherrypy.session["user"]["username"]):
+                return json.dumps(user.val())
+
+    @cherrypy.expose
+    def profile_update(self, username=None, name=None, email=None, number=None, addr=None, zipcode=None, pwd=None):
+        tparams = {
+            'title': 'profile',
+            'errors': False,
+            'user': self.get_user(),
+            'year': datetime.now().year,
+        }
+
+        db = firebase.database()
+
+        users = db.child("users").get()
+        for user in users.each():
             if user.val()["name"] == username:
-                usr = user
-
-        if oldpassword != "":
-            if oldpassword != usr.val()["password"]:
-                tparams = {
-                    'title': 'Profile Update',
-                    'errors': True,
-                    'user': self.get_user(),
-                    'year': datetime.now().year,
-                }
-                return self.render('profile.html', tparams)
-            else:
-                self.do_updateFirebase(username, nickname, email, phone_number, address, zip_code, password)
-                raise cherrypy.HTTPRedirect("/profile")
-        else :
-            self.do_updateFirebase(username, nickname, email, phone_number, address, zip_code, "")
-            raise cherrypy.HTTPRedirect("/profile")
-
+                if name != user.val()["name"] and name != "" and name != None:
+                    db.child("users").child(user.key()).update({"username": name})
+                if email != user.val()["email"] and email != "" and email != None:
+                    db.child("users").child(user.key()).update({"email": email})
+                if number != user.val()["phone_number"] and number != "" and number != None:
+                    db.child("users").child(user.key()).update({"phone_number":number})
+                if addr != user.val()["address"] and addr != "" and addr != None:
+                    db.child("users").child(user.key()).update({"address": addr})
+                if zipcode != user.val()["zip_code"] and zipcode != "" and zipcode != None:
+                    db.child("users").child(user.key()).update({"zip_code": zipcode})
         
+        return self.render('profile2.html', tparams)
+
+########################################################################################################################
+#   Configuration
 
 if __name__ == '__main__':
     conf = {
