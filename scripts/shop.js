@@ -84,6 +84,7 @@ function create_elements(object) {
     div4.innerHTML = inner;
     div2.appendChild(div4);
 
+    var flag = check_cart(object[key].name);
     //Adds button
     var html = [
       '<label for="', object[key].name, '" onClick="update_cart(this)" class="btn btn-lg btn-success active">',
@@ -97,11 +98,11 @@ function create_elements(object) {
     ].join('');
 
     var html_added = [
-      '<label for="', object[key].name, '" onClick="remove_cart(this)" class="btn btn-lg btn-success active">',
+      '<label for="', object[key].name, '" onclick="remove_cart(this)" class="btn btn-lg btn-success">',
       '<input type="radio" id="option', nElements, '_a" autocomplete="off" checked>',
       '<i class="fa fa-check"></i> Added',
       '</label>',
-      '<label for="', object[key].name, '" onClick="update_cart(this)" class="btn btn-lg btn-danger">',
+      '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-danger active">',
       '<input type="radio" id="option', nElements, '_b" autocomplete="off">',
       '<i class="fas fa-shopping-cart"></i> Add to cart',
       '</label>'
@@ -190,11 +191,22 @@ function update_cart(elem) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if(this.readyState == 4 && this.status == 200) {
-        alert("HEY");
         update_counter();
       }
   };
   xhttp.open("POST", "/update_cart?product=" + elem.htmlFor + "&qty=1", true);
+  xhttp.send(); 
+}
+
+function check_cart(product) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      if(this.readyState == 4 && this.status == 200) {
+        alert(this.responseText);
+        return this.responseText;
+      }
+  };
+  xhttp.open("POST", "/check_cart?product=" + product, true);
   xhttp.send(); 
 }
 
