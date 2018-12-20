@@ -184,12 +184,8 @@ class WebApp(object):
         
 
     @cherrypy.expose
-    def check_cart(self, product):
-        for item in cherrypy.session["user"]["cart"]:
-            if item["name"] == product:
-                return "True"
-
-        return json.dumps("False")
+    def check_cart(self):
+        return json.dumps(cherrypy.session["user"]["cart"])
 
     @cherrypy.expose
     def cart_counter(self):

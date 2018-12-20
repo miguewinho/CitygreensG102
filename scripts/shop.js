@@ -3,6 +3,13 @@ var response;
 var category = "";
 var search_query = "";
 var nElements = 0;
+var cart;
+
+$( document ).ready(function() {
+  $.get( "check_cart", function(data) {
+    cart = JSON.parse(data);
+  });
+});
 
 function get_products(callback) {
   
@@ -84,29 +91,44 @@ function create_elements(object) {
     div4.innerHTML = inner;
     div2.appendChild(div4);
 
-    var flag = check_cart(object[key].name);
-    //Adds button
-    var html = [
-      '<label for="', object[key].name, '" onClick="update_cart(this)" class="btn btn-lg btn-success active">',
-      '<input type="radio" id="option', nElements, '_a" autocomplete="off" checked>',
-      '<i class="fa fa-check"></i> Added',
-      '</label>',
-      '<label for="', object[key].name, '" onClick="update_cart(this)" class="btn btn-lg btn-danger">',
-      '<input type="radio" id="option', nElements, '_b" autocomplete="off">',
-      '<i class="fas fa-shopping-cart"></i> Add to cart',
-      '</label>'
-    ].join('');
+    var html;
+    var flag = false;
+    /*
+    ** Send a $post to the server to check if the product is in the cart 
+    ** It changes the button accordingly, from active to inactive
+    */
+    for(item in cart) {
+      if(cart[item].name == object[key].name) {
+        flag = true;
+      }
+    }
+   
+    if(flag == true) {
+      //HTML code for the add buttons
+      html = [
+        '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-success">',
+        '<input type="radio" id="option', nElements, '_a" autocomplete="off">',
+        '<i class="fa fa-check"></i> Added',
+        '</label>',
+        '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-danger active">',
+        '<input type="radio" id="option', nElements, '_b" autocomplete="off" checked>',
+        '<i class="fas fa-shopping-cart"></i> Add to cart',
+        '</label>'
+      ].join('');
+    } else {
+      //HTML code for the add buttons
+      html = [
+        '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-success active">',
+        '<input type="radio" id="option', nElements, '_a" autocomplete="off" checked>',
+        '<i class="fa fa-check"></i> Added',
+        '</label>',
+        '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-danger">',
+        '<input type="radio" id="option', nElements, '_b" autocomplete="off">',
+        '<i class="fas fa-shopping-cart"></i> Add to cart',
+        '</label>'
+      ].join('');
+    }
 
-    var html_added = [
-      '<label for="', object[key].name, '" onclick="remove_cart(this)" class="btn btn-lg btn-success">',
-      '<input type="radio" id="option', nElements, '_a" autocomplete="off" checked>',
-      '<i class="fa fa-check"></i> Added',
-      '</label>',
-      '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-danger active">',
-      '<input type="radio" id="option', nElements, '_b" autocomplete="off">',
-      '<i class="fas fa-shopping-cart"></i> Add to cart',
-      '</label>'
-    ].join('');
 
     var div5 = document.createElement("div");
     div5.setAttribute('class', 'center-footer');
@@ -195,18 +217,6 @@ function update_cart(elem) {
       }
   };
   xhttp.open("POST", "/update_cart?product=" + elem.htmlFor + "&qty=1", true);
-  xhttp.send(); 
-}
-
-function check_cart(product) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-      if(this.readyState == 4 && this.status == 200) {
-        alert(this.responseText);
-        return this.responseText;
-      }
-  };
-  xhttp.open("POST", "/check_cart?product=" + product, true);
   xhttp.send(); 
 }
 
