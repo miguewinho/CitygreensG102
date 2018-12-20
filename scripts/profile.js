@@ -13,11 +13,6 @@ $('#reset_btn').click(function(event) {
     get_user_details();
 });
 
-$('#update_btn').click(function(event) {
-    update_user_details();
-});
-
-
 $('#passwordModal button.btn.btn-primary').click(function(event) {
     var flag;
     event.preventDefault();
@@ -93,10 +88,5 @@ function get_user_details() {
         document.getElementById("addr").value = JSON.parse(data)["address"];
         document.getElementById("zipcode").value = JSON.parse(data)["zip_code"];
         document.getElementById("number").value = JSON.parse(data)["phone_number"];
-    });
-}
-
-function update_user_detaisl() {
-    $.get( "profile_update", function( data ) {
     });
 }

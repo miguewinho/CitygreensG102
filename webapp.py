@@ -312,8 +312,9 @@ class WebApp(object):
         db = firebase.database()
 
         users = db.child("users").get()
+
         for user in users.each():
-            if user.val()["name"] == username:
+            if user.val()["name"] == cherrypy.session["user"]["username"]:
                 if name != user.val()["name"] and name != "" and name != None:
                     db.child("users").child(user.key()).update({"username": name})
                 if email != user.val()["email"] and email != "" and email != None:
@@ -324,7 +325,7 @@ class WebApp(object):
                     db.child("users").child(user.key()).update({"address": addr})
                 if zipcode != user.val()["zip_code"] and zipcode != "" and zipcode != None:
                     db.child("users").child(user.key()).update({"zip_code": zipcode})
-        
+
         return self.render('profile.html', tparams)
 
 ########################################################################################################################
