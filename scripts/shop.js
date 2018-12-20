@@ -96,6 +96,17 @@ function create_elements(object) {
       '</label>'
     ].join('');
 
+    var html_added = [
+      '<label for="', object[key].name, '" onClick="remove_cart(this)" class="btn btn-lg btn-success active">',
+      '<input type="radio" id="option', nElements, '_a" autocomplete="off" checked>',
+      '<i class="fa fa-check"></i> Added',
+      '</label>',
+      '<label for="', object[key].name, '" onClick="update_cart(this)" class="btn btn-lg btn-danger">',
+      '<input type="radio" id="option', nElements, '_b" autocomplete="off">',
+      '<i class="fas fa-shopping-cart"></i> Add to cart',
+      '</label>'
+    ].join('');
+
     var div5 = document.createElement("div");
     div5.setAttribute('class', 'center-footer');
     div5.setAttribute('data-toggle', 'buttons');
@@ -169,11 +180,18 @@ function get_search(callback) {
   xhr.send();
 }
 
+function update_counter() {
+  $.get( "cart_counter", function( data ) {
+      $("#cart_size")[0].innerHTML = data;
+  });
+}
+
 function update_cart(elem) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       if(this.readyState == 4 && this.status == 200) {
-        alert(this.responseText);
+        alert("HEY");
+        update_counter();
       }
   };
   xhttp.open("POST", "/update_cart?product=" + elem.htmlFor + "&qty=1", true);

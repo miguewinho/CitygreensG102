@@ -25,6 +25,7 @@
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <link rel="stylesheet" href="css/layout.css">
+    
     <!--
     <link href="css/shop-homepage.css" rel="stylesheet">
     -->
@@ -51,7 +52,7 @@
             </li>
             <li>
               <button type="button" onclick="window.location.href='/checkout'" class="btn btn-dark">
-                Cart <span class="badge badge-warning">7</span>
+                Cart <span id="cart_size" class="badge badge-warning">7</span>
               </button>
             </li>
         </div>
@@ -73,7 +74,8 @@
     <!-- Bootstrap core JavaScript -->
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/bootstrap.bundle.min.js"></script>
-    <script src="scripts/signup.js"></script>
+    <script src="scripts/layout.js"></script>
+    
 
     {% block scripts %}
     {% endblock %}

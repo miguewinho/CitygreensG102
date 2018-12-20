@@ -158,26 +158,41 @@ class WebApp(object):
     @cherrypy.expose
     def update_cart(self, product, qty):
 
-        cart = {
+        item = {
             'name' : product,
             'quantity' : qty
         }
 
-        cherrypy.session['user']['cart'].append(cart)
+        if not cherrypy.session["user"]["cart"]:
+            cherrypy.session["user"]["cart"].append(item)
+        else:
+            for a in cherrypy.session["user"]["cart"]:
+                if a["name"] == product:
+                    cherrypy.session["user"]["cart"].remove(a)
+                else:
+                    cherrypy.session["user"]["cart"].append(item)
+        
+        
 
-        return "True"
+    @cherrypy.expose
+    def check_cart(self, product):
+        for item in cherrypy.session["user"]["cart"]:
+            if item["name"] == product:
+                return "True"
+
+        return json.dumps("False")
 
     @cherrypy.expose
     def cart_counter(self):
     	cart = cherrypy.session['user']['cart']
-    	return len(cart)
+    	return json.dumps(len(cart))
 
     @cherrypy.expose
     def removefrom_cart(self, product):
     	cart = cherrypy.session['user']['cart']
 
     	for a in cart:
-    		if a[0] == product:
+    		if a["name"] == product:
     			cart.remove(a)
     			return True
     	return False
