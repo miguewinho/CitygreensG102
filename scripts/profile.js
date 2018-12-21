@@ -1,5 +1,11 @@
 $(document).ready(function(){
     $('.pass_show').append('<span class="ptxt">Show</span>');
+    $('[id^=detail-]').hide();
+    $('.toggle').click(function() {
+        $input = $( this );
+        $target = $('#'+$input.attr('data-toggle'));
+        $target.slideToggle();
+    });
 
     get_user_details();
 });
@@ -82,6 +88,17 @@ function validateEmail(email) {
 
 function get_user_details() {
     $.get( "get_user_details", function( data ) {
+        document.getElementById("user_name").innerHTML = JSON.parse(data)["name"];
+        document.getElementById("name").value = JSON.parse(data)["name"];
+        document.getElementById("username").value = JSON.parse(data)["username"];
+        document.getElementById("addr").value = JSON.parse(data)["address"];
+        document.getElementById("zipcode").value = JSON.parse(data)["zip_code"];
+        document.getElementById("number").value = JSON.parse(data)["phone_number"];
+    });
+}
+
+function draw_invoice() {
+    $.get( "get_invoices", function( data ) {
         document.getElementById("user_name").innerHTML = JSON.parse(data)["name"];
         document.getElementById("name").value = JSON.parse(data)["name"];
         document.getElementById("username").value = JSON.parse(data)["username"];

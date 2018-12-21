@@ -1,3 +1,5 @@
+var subtotal = [];
+
 $(document).ready(function(){
     get_cart();
 });
@@ -10,7 +12,79 @@ function get_cart() {
             document.getElementById("info_p").style.display = "none";
         }
         draw(JSON.parse(data));
+        set_quantity();
+        var input = document.getElementsByTagName("input");
+        for (var item in input) {
+            update_quantity(input[item]);
+        }
     });
+    
+}
+
+function set_quantity() {
+    $.get( "check_cart", function( data ) {
+        var input = document.getElementsByTagName("input");
+        var response = JSON.parse(data);
+        for(var i in input) {
+            for(var item in response) {
+                if(input[i].id == response[item].name) {  
+                    input[i].value = response[item].quantity;
+                    update_quantity(input[i]);
+                }
+            }
+        }
+    });
+}
+
+function btn_click(elem) {
+    change_cart(elem.id, elem.value);
+    update_quantity(elem);
+}
+
+function update_quantity(elem) {
+    
+    var price = document.getElementById("p_" + elem.name);
+    var sub = parseFloat(parseFloat(price.name) * parseFloat(elem.value)).toFixed(2);
+
+    var html1 = [
+        '<br>',
+        '<span>Subtotal: <strong>', sub, '€</strong></span>'
+    ].join('');
+
+    document.getElementById("c_" + elem.name).innerHTML = html1;
+
+    subtotal[elem.name - 1] = sub;
+
+    var total = 0;
+    for(i = 0; i < subtotal.length; i++) {
+        total += parseFloat(subtotal[i]);
+    }
+
+    var html2 = [
+        '<span class="text">Subtotal</span>',
+		'<span class="price">', parseFloat(total).toFixed(2), '€</span>'
+    ].join('');
+
+    document.getElementById("cart_subtotal").innerHTML = html2;
+
+    var html3 = [
+        '<span class="text">Total</span>',
+		'<span class="price">', parseFloat(total+4.99).toFixed(2), '€</span>'
+    ].join('');
+
+    document.getElementById("cart_total").innerHTML = html3;
+}
+
+function change_cart(p_name, p_qty) {
+    /*
+    $.post( "update_quantity", {product : p_name, quantity : p_qty}, function( data ) {
+        alert(data);
+    });
+    */
+
+    $.post( "update_quantity", { product: p_name, qty: p_qty } );
+
+
 }
 
 function draw(elements) {
@@ -33,7 +107,7 @@ function draw(elements) {
 
         var img = document.createElement("img");
         img.classList = "img-fluid mx-auto d-block image";
-        img.src = "https://static.greatbigcanvas.com/images/square/panoramic-images/oranges-on-a-tree-santa-paula-ventura-county-california,2005446.jpg?max=128";
+        img.src = elements[item].reduced_image;
         col1.appendChild(img);
 
         var col2 = document.createElement("div");
@@ -66,9 +140,12 @@ function draw(elements) {
         p_info.classList = "product-info";
         p_name.appendChild(p_info);
 
+        var p = elements[item].price;
+        p = p.substring(0, p.length - 1)
+
         var html1 = [
             '<div>Stock: <span class="value">', elements[item].quantity, '</span></div>',
-            '<div>Price: <span class="value">', elements[item].price, '/kg</span></div>'
+            '<div><a id="p_', count+1, '" name="', p,'"></a>Price: <span class="value">', elements[item].price, '/kg</span></div>'
         ].join('');
 
         p_info.innerHTML = html1;
@@ -79,21 +156,15 @@ function draw(elements) {
 
         var html2 = [
             '<label for="quantity">Quantity:</label>',
-            '<input id="quantity" type="number" value ="1" class="form-control quantity-input">'
+            '<input id="', elements[item].name, '" name="', count+1, '" onchange="btn_click(this)" type="number" value ="1" min="1" class="form-control quantity-input">'
         ].join('');
 
         col4.innerHTML = html2;
 
         var col5 = document.createElement("div");
+        col5.id = "c_" + (count+1);
         col5.classList = "col-md-3";
         row2.appendChild(col5);
-
-        var html3 = [
-            '<br>',
-			'<span>Subtotal: <strong>2,19€</strong></span>'
-        ].join('');
-
-        col5.innerHTML = html3;
 
         var col6 = document.createElement("div");
         col6.classList = "col-md-1";
@@ -133,4 +204,11 @@ function remove_product(elem) {
 
 function clear() {
     document.getElementById("items").innerHTML = "";
+}
+
+
+function payment() {
+    alert("Payment successfull!");
+    $.get( "add_to_history", function(data) {
+      });
 }

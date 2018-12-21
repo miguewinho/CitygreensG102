@@ -73,6 +73,28 @@ class WebApp(object):
 
         db.child("users").push(data)
 
+    #Remove later
+    @cherrypy.expose
+    def add_to_history(self):
+        now = datetime.now()
+        db = firebase.database()
+
+        products = []
+        for item in cherrypy.session["user"]["cart"]:
+            products.append(item);
+
+        data = {
+            "date" : now.strftime("%Y-%m-%d %H:%M"),
+            "products" : products
+        }
+
+        users = db.child("users").get()
+        for user in users.each():
+            if user.val()["name"] == cherrypy.session["user"]["username"]:
+                db.child("users").child(user.key()).child("history").push(data)
+
+
+
 ########################################################################################################################
 #   Controllers
 
@@ -225,13 +247,13 @@ class WebApp(object):
 
     @cherrypy.expose
     def update_quantity(self, product, qty):
-    	cart = cherrypy.session['user']['cart']
+        
+        for item in cherrypy.session["user"]["cart"]:
+            if item["name"] == product:
+                item["quantity"] = qty
+                return "True"
 
-    	for a in cart:
-    		if a[0] == product:
-    			a[1] == qty
-    			return True
-    	return False
+        return "False"
 
     @cherrypy.expose
     def user_exists(self, email):
