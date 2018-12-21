@@ -2,7 +2,7 @@
 
 <div class="dropdown mr-1">
     <button type="button" id="dmo" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		<i class="far fa-user"></i> &nbsp;&nbsp;{{ user.username }}</button>
+		<i class="far fa-user"></i> &nbsp;&nbsp;{{ user.username }}&nbsp;&nbsp;</button>
   	</button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
       <a class="dropdown-item" href="profile"><i class="far fa-user"></i>&nbsp;&nbsp;&nbsp;&nbsp;Profile</a>
@@ -14,6 +14,6 @@
 
 {% else %}
 
-<button type="button" onclick="window.location.href='/login'" class="btn btn-dark nav-item">Login</button>
+<button type="button" onclick="window.location.href='/login'" class="btn btn-dark nav-item">&nbsp;&nbsp;Login&nbsp;&nbsp;</button>
 
 {% endif %}

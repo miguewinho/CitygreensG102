@@ -9,6 +9,8 @@ $( document ).ready(function() {
   $.get( "check_cart", function(data) {
     cart = JSON.parse(data);
   });
+  init();
+  get_products(print_products);
 });
 
 function get_products(callback) {
@@ -103,27 +105,28 @@ function create_elements(object) {
       }
     }
    
-    if(flag == true) {
+    if(flag != true) {
       //HTML code for the add buttons
       html = [
-        '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-success">',
-        '<input type="radio" id="option', nElements, '_a" autocomplete="off">',
-        '<i class="fa fa-check"></i> Added',
-        '</label>',
         '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-danger active">',
-        '<input type="radio" id="option', nElements, '_b" autocomplete="off" checked>',
+        '<input type="radio" id="option', nElements, '_a" autocomplete="off" checked>',
+        '<i class="fa fa-times"></i> Remove',
+        '</label>',
+        '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-primary">',
+        '<input type="radio" id="option', nElements, '_b" autocomplete="off">',
         '<i class="fas fa-shopping-cart"></i> Add to cart',
         '</label>'
       ].join('');
+      
     } else {
       //HTML code for the add buttons
       html = [
-        '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-success active">',
-        '<input type="radio" id="option', nElements, '_a" autocomplete="off" checked>',
-        '<i class="fa fa-check"></i> Added',
-        '</label>',
         '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-danger">',
-        '<input type="radio" id="option', nElements, '_b" autocomplete="off">',
+        '<input type="radio" id="option', nElements, '_a" autocomplete="off">',
+        '<i class="fa fa-times"></i> Remove',
+        '</label>',
+        '<label for="', object[key].name, '" onclick="update_cart(this)" class="btn btn-lg btn-primary active">',
+        '<input type="radio" id="option', nElements, '_b" autocomplete="off" checked>',
         '<i class="fas fa-shopping-cart"></i> Add to cart',
         '</label>'
       ].join('');
@@ -131,7 +134,7 @@ function create_elements(object) {
 
 
     var div5 = document.createElement("div");
-    div5.setAttribute('class', 'center-footer');
+    div5.setAttribute('class', 'center-div');
     div5.setAttribute('data-toggle', 'buttons');
     div5.innerHTML = html;
 
@@ -144,6 +147,9 @@ function create_elements(object) {
 
 function clear_page() {
   document.getElementById("row-list").innerHTML = "";
+  $.get( "check_cart", function(data) {
+    cart = JSON.parse(data);
+  });
 }
 
 function init() {
@@ -219,6 +225,3 @@ function update_cart(elem) {
   xhttp.open("POST", "/update_cart?product=" + elem.htmlFor + "&qty=1", true);
   xhttp.send(); 
 }
-
-document.onload = get_products(print_products);
-window.onload = init;

@@ -2,12 +2,13 @@
 {% block content %}
 
 {% block styles %}
-  <link href="css/shop-homepage.css" rel="stylesheet">
-  <link href="css/checkout.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  	<link href="css/checkout.css" rel="stylesheet">
+  	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
 {% endblock %}
-    <!-- Page Content -->
-	<div id="init" style="min-height: 90vh" class="container">
+	<!-- Page Content -->
+	<div id="init" style="min-height: 94vh" class="container">
+	<br>
+	<br>
 	<br>
 	<br>
 		
@@ -21,78 +22,8 @@
 			<div class="content">
 				<div class="row">
 					<div class="col-md-12 col-lg-8">
-						<div class="items">
-							<div class="product">
-								<div class="row">
-									<div class="col-md-3">
-										<img class="img-fluid mx-auto d-block image" src="https://static.greatbigcanvas.com/images/square/panoramic-images/oranges-on-a-tree-santa-paula-ventura-county-california,2005446.jpg?max=128">
-									</div>
-									<div class="col-md-8">
-										<div class="info">
-											<div class="row">
-												<div class="col-md-4 product-name">
-													<div class="product-name">
-														<a href="#">Orange</a>
-														<div class="product-info">
-															<div>Stock: <span class="value">150</span></div>
-															<div>Price: <span class="value">2,19€/kg</span></div>	
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 quantity">
-													<label for="quantity">Quantity:</label>
-													<input id="quantity" type="number" value ="1" class="form-control quantity-input">
-												</div>
-												<div class="col-md-3">
-													<br>
-													<span>Subtotal: <strong>2,19€</strong></span>
-												</div>
-												<div class="col-md-1">
-													<br>
-													<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<hr align="center" class="custom-style">
-							
-							<div class="product">
-								<div class="row">
-									<div class="col-md-3">
-										<img class="img-fluid mx-auto d-block image" src="https://a.wattpad.com/useravatar/onionsz.128.621023.jpg">
-									</div>
-									<div class="col-md-8">
-										<div class="info">
-											<div class="row">
-												<div class="col-md-4 product-name">
-													<div class="product-name">
-														<a href="#">Onion</a>
-														<div class="product-info">
-															<div>Stock: <span class="value">200</span></div>
-															<div>Price: <span class="value">1,79€/kg</span></div>	
-														</div>
-													</div>
-												</div>
-												<div class="col-md-4 quantity">
-													<label for="quantity">Quantity:</label>
-													<input id="quantity" type="number" value ="1" class="form-control quantity-input">
-												</div>
-												<div class="col-md-3">
-													<br>
-													<span>Subtotal: <strong>1,79€</strong></span>
-												</div>
-												<div class="col-md-1">
-													<br>
-													<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div id="items" class="items">
+							<!-- Cart products goes here -->
 						</div>
 					</div>
 					<div class="col-md-12 col-lg-4">
@@ -110,14 +41,14 @@
 		</div>
 	</section>
 
-    <br>
+	<br>
 
-    </div>
-<!-- /.container -->
+	</div>
+	<!-- /.container -->
 
 {% endblock %}
 
 {% block scripts %}
-    
+	<script type="text/javascript" src="scripts/cart.js"></script> 
 {% endblock %}
 

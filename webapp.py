@@ -188,6 +188,26 @@ class WebApp(object):
         return json.dumps(cherrypy.session["user"]["cart"])
 
     @cherrypy.expose
+    def get_cart(self):
+        result = []
+        db = firebase.database()
+        keys = list(db.child("products").shallow().get().val())
+        
+        for key in keys:
+            products = db.child("products").child(key).get()
+            for item_p in products.each():
+                for item_c in cherrypy.session["user"]["cart"]:
+                    if item_p.val()["name"] == item_c["name"]:
+                        obj = item_p.val()
+                        if obj not in result:
+                            result.append(obj)
+
+        if not result:
+            return "null"
+        else:
+            return json.dumps(result)
+
+    @cherrypy.expose
     def cart_counter(self):
     	cart = cherrypy.session['user']['cart']
     	return json.dumps(len(cart))
@@ -246,6 +266,7 @@ class WebApp(object):
         result = []
 
         keys = list(db.child("products").shallow().get().val())
+    
         for key in keys:
             products = db.child("products").child(key).get()
             for item in products.each():
@@ -258,7 +279,7 @@ class WebApp(object):
                             if obj not in result:
                                 result.append(obj)
         
-        print(json.dumps(result))
+  
         if not result:
             return "null"
         else:
