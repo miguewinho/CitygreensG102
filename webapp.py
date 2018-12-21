@@ -165,23 +165,16 @@ class WebApp(object):
         }
 
         if not cherrypy.session["user"]["cart"]:
-            print("empty")
             cherrypy.session["user"]["cart"].append(data)
         else:
             for item in cherrypy.session["user"]["cart"]:
                 if item["name"] == product:
-                    print("remove")
                     flag = True
                     cherrypy.session["user"]["cart"].remove(item)
                     break
 
             if flag == False:
-                print("add")
                 cherrypy.session["user"]["cart"].append(data)
-                
-        print(cherrypy.session["user"]["cart"])
-        
-        
 
     @cherrypy.expose
     def check_cart(self):
@@ -213,14 +206,22 @@ class WebApp(object):
     	return json.dumps(len(cart))
 
     @cherrypy.expose
-    def removefrom_cart(self, product):
-    	cart = cherrypy.session['user']['cart']
+    def remove_from_cart(self, product):
+        tparams = {
+            'title': 'Shop',
+            'errors': False,
+            'user': self.get_user(),
+            'year': datetime.now().year,
+            }
+        cart = cherrypy.session['user']['cart']
 
-    	for a in cart:
-    		if a["name"] == product:
-    			cart.remove(a)
-    			return True
-    	return False
+        for a in cart:
+            if a["name"] == product:
+                cart.remove(a)
+    	
+        print(cherrypy.session["user"]["cart"])
+        raise cherrypy.HTTPRedirect("/checkout")
+        #return self.render('checkout.html', tparams)
 
     @cherrypy.expose
     def update_quantity(self, product, qty):
@@ -312,7 +313,6 @@ class WebApp(object):
         for user in users.each():
             if user.val()["name"] == cherrypy.session["user"]["username"]:
                 if user.val()["password"] != old_pwd:
-                    print("0000");
                     return "0"
                 else:
                     data = {

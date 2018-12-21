@@ -1,11 +1,21 @@
 $(document).ready(function(){
+    get_cart();
+});
+
+function get_cart() {
     $.get( "get_cart", function( data ) {
+        if(data == "null") {
+            document.getElementById("info_p").style.display = "block";
+        } else {
+            document.getElementById("info_p").style.display = "none";
+        }
         draw(JSON.parse(data));
     });
-});
+}
 
 function draw(elements) {
     var count = elements.length - 1;
+    
     for(var item in elements) {
         var parent = document.getElementById("items");
 
@@ -91,7 +101,7 @@ function draw(elements) {
 
         var html4 = [
             '<br>',
-			'<button type="button" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>'
+            '<button name="', elements[item].name, '" onclick="remove_product(this)" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash-alt"></i></button>'
         ].join('');
 
         col6.innerHTML = html4;
@@ -102,7 +112,25 @@ function draw(elements) {
             hr.align = "center";
             parent.appendChild(hr);
         }
-        
+
         count--;
     }
+}
+
+function update_counter() {
+    $.get( "cart_counter", function( data ) {
+        $("#cart_size")[0].innerHTML = data;
+    });
+}
+
+function remove_product(elem) {
+    $.post( "remove_from_cart", { product: elem.name }, function(data, status){
+        update_counter();
+        clear();
+        get_cart();
+    });
+}
+
+function clear() {
+    document.getElementById("items").innerHTML = "";
 }
