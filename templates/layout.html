@@ -48,14 +48,18 @@
               
               <button type="button" onclick="window.location.href='/index'" class="btn btn-dark">&nbsp;&nbsp;Home&nbsp;&nbsp;</button>
             </li>
+		  {% if user.is_authenticated %}
             <li class="nav-item">
               <button type="button" onclick="window.location.href='/shop'" class="btn btn-dark">&nbsp;&nbsp;Shop&nbsp;&nbsp;</button>
             </li>
+		  {% endif %}
+		  {% if user.is_authenticated %}
             <li>
               <button type="button" onclick="window.location.href='/checkout'" class="btn btn-dark">
                 &nbsp;&nbsp;Cart &nbsp;&nbsp;<span id="cart_size" class="badge badge-warning">0</span>&nbsp;&nbsp;
               </button>
             </li>
+		  {% endif %}
         </div>
         {% include 'loginpartial.html' %}
       </div>
